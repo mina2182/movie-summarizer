@@ -59,6 +59,8 @@ public class SearchEngines extends HttpServlet {
 	    }
 	    in.close();
 		
+	    Reader reader = new Reader(content);
+	    
 	}
 
 	/**
