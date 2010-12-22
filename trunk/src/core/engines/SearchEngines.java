@@ -38,9 +38,9 @@ public class SearchEngines extends HttpServlet {
 	    // The getParameter method decodes automatically, but since
 	    // we're just passing this on to another server, we need to
 	    // re-encode it.
-	    String searchString = URLEncoder.encode(request.getParameter("searchString"));
+	    String searchString = request.getParameter("searchString");
 	    
-	    URL theurl = new URL("http://themoviespoiler.com/Spoilers/"+ searchString +".html");
+	    URL theurl = new URL(searchString);
 	    System.setProperty("http.proxyHost", "152.118.24.10");
 	    System.setProperty("http.proxyPort", "8080");
 
