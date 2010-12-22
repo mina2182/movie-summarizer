@@ -60,6 +60,9 @@ public class SearchEngines extends HttpServlet {
 	    in.close();
 		
 	    Reader reader = new Reader(content);
+	    String summary = reader.getSummary();
+	    request.setAttribute("summary", summary);
+	    getServletConfig().getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	    
 	}
 
