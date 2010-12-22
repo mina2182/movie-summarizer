@@ -1,5 +1,9 @@
 package core.engines;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Reader {
 		
 	String content[];
@@ -12,4 +16,13 @@ public class Reader {
 	public void parseParagraphToKalimat(int posparagraph, int poskalimat){
 		
 	}
+	
+	public String getSummary(){
+		String s = "";
+		for (int ii=0;ii<content.length;ii++){
+			s+=content[ii];
+		}
+		return s;
+	}
+	
 }
