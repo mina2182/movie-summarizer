@@ -20,9 +20,10 @@ public class Reader {
 	public String getSummary(){
 		String s = "";
 		for (int ii=0;ii<content.length;ii++){
-			s+=content[ii];
+			if (content[ii]==null)
+				break;
+			s+=content[ii];		
 		}
 		return s;
 	}
-	
 }
