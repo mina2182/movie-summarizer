@@ -16,8 +16,12 @@
       siteSearch = new google.search.WebSearch()
       siteSearch.setUserDefinedLabel("www.themoviespoiler.com");
       siteSearch.setSiteRestriction("themoviespoiler.com");
-      searchControl.addSearcher(siteSearch);
       
+      options = new google.search.SearcherOptions();
+      options.setExpandMode(google.search.SearchControl.EXPAND_MODE_OPEN);
+
+      searchControl.addSearcher(siteSearch,options);
+            
       // Tell the searcher to draw itself and tell it where to attach
       searchControl.draw(document.getElementById("searchcontrol"));
 
