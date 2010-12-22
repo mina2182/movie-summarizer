@@ -5,16 +5,21 @@
   <TITLE>Searching the Web</TITLE>
 </HEAD>
 
-<BODY BGCOLOR="#FDF5E6">
-<H1 ALIGN="CENTER">Searching the Web</H1>
+<BODY>
+<H1>Searching the Web</H1>
 
 <FORM ACTION="SearchEngines">
-  <CENTER>
-    Search Movies : 
-    <INPUT TYPE="TEXT" NAME="searchString"><BR>
-    <BR>
-    <INPUT TYPE="SUBMIT" VALUE="Summary">
-  </CENTER>
+  <table>
+  <tbody>
+  	<tr>
+    	<td>Search Movies :</td> 
+    	<td><INPUT TYPE="TEXT" NAME="searchString"></td> 
+    </tr>
+    <tr>
+    	<td><INPUT TYPE="SUBMIT" VALUE="Summary"></td>
+    </tr>
+  </tbody>
+  </table>
 </FORM>
 
 </BODY>
