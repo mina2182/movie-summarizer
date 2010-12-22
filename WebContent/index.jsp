@@ -21,10 +21,10 @@
 <div id="line2">
 <div id="result">
 result
-</div>
-<div id="gmaps">
-gmaps
-<%@ include file="Gmaps.jsp" %>
+<%
+if (request.getAttribute("summary")!=null)
+	out.print(request.getAttribute("summary").toString());
+%>
 </div>
 </div>
 
