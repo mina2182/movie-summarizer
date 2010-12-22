@@ -13,7 +13,11 @@
       var searchControl = new google.search.SearchControl();
 
       // Add in a full set of searchers
-      searchControl.addSearcher(new google.search.WebSearch());
+      siteSearch = new google.search.WebSearch()
+      siteSearch.setUserDefinedLabel("www.themoviespoiler.com");
+      siteSearch.setSiteRestriction("themoviespoiler.com");
+      searchControl.addSearcher(siteSearch);
+      
       // Tell the searcher to draw itself and tell it where to attach
       searchControl.draw(document.getElementById("searchcontrol"));
 
