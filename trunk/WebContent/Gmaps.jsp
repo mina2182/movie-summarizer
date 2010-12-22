@@ -16,6 +16,6 @@ function initialize() {
  </script>
  </head>
 <body onload="initialize()" onunload="GUnload()">
-<div id="map_canvas" style="width: 800px; height: 600px"></div>
+<div id="map_canvas" style="width: 500px; height: 400px"></div>
 </body>
 </html>
