@@ -4,12 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLEncoder;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 
 /**
  * Servlet implementation class SearchEngines
@@ -38,7 +40,6 @@ public class SearchEngines extends HttpServlet {
 	    // we're just passing this on to another server, we need to
 	    // re-encode it.
 	    String searchString = request.getParameter("searchString");
-	    
 	    URL theurl = new URL(searchString);
 	    System.setProperty("http.proxyHost", "152.118.24.10");
 	    System.setProperty("http.proxyPort", "8080");
@@ -57,8 +58,8 @@ public class SearchEngines extends HttpServlet {
 	    	}
 	    }
 	    in.close();
-		
 	    Reader reader = new Reader(content);
+	    reader.luceneSummarizer();
 	    String summary = reader.getSummary();
 	    request.setAttribute("summary", summary);
 	    getServletConfig().getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
