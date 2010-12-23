@@ -1,8 +1,6 @@
 package core.engines;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+
 
 public class Reader {
 		
@@ -10,11 +8,13 @@ public class Reader {
 	
 	Reader(String [] content){
 		this.content = content;
-		System.out.println("reader contructor called");
 	}
 	
-	public void parseParagraphToKalimat(int posparagraph, int poskalimat){
-		
+	
+	public void luceneSummarizer(){
+		MyIndexFiles index = new MyIndexFiles(content);
+		index.init();
+		//index.createIndex();
 	}
 	
 	public String getSummary(){
