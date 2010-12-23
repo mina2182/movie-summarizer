@@ -43,7 +43,7 @@ public class MyIndexFiles {
 		s = s.replaceAll("&rsquo;","\'");
 		String spliting[] = s.split(" |<p>|</p>|&nbsp;|[.,]");
 		for (int jj = 0 ; jj< spliting.length; jj++){
-			temp.add(spliting[jj]);
+			if (!spliting[jj].equals(""))temp.add(spliting[jj]);
 		}
 		return temp;
 	}
@@ -54,6 +54,7 @@ public class MyIndexFiles {
 			for (int jj=0; jj<temp.size();jj++){
 				System.out.println(temp.get(jj));
 			}
+			System.out.println("---------------");
 		}
 	}
 	
