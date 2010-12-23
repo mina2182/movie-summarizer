@@ -18,6 +18,9 @@ public class MyIndexFiles {
 	Directory ramdir;
 	StandardAnalyzer analyzer;
 	String [] content;
+	
+	String [] tag = {"<p>","</p>","<b>","</b>",",","&amp;","&nbsp;"};
+	String [] translate = {"","","",""," ","&"," "};
 	ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 	
 	
@@ -37,9 +40,11 @@ public class MyIndexFiles {
 	public ArrayList<String> ParseSentence(String s ){
 		ArrayList<String> temp = new ArrayList<String>();
 		temp.clear();
-		StringTokenizer token = new StringTokenizer(s," ");
-		while (token.hasMoreTokens()){
-			temp.add(token.nextToken());
+		s = s.replaceAll("&amp;", "&");
+		s = s.replaceAll("&quot;", "\"");
+		String spliting[] = s.split(" |<p>|</p>|&nbsp;|[.,]");
+		for (int jj = 0 ; jj< spliting.length; jj++){
+			temp.add(spliting[jj]);
 		}
 		return temp;
 	}
