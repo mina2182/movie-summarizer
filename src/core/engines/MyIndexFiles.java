@@ -19,8 +19,6 @@ public class MyIndexFiles {
 	StandardAnalyzer analyzer;
 	String [] content;
 	
-	String [] tag = {"<p>","</p>","<b>","</b>",",","&amp;","&nbsp;"};
-	String [] translate = {"","","",""," ","&"," "};
 	ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 	
 	
@@ -42,6 +40,7 @@ public class MyIndexFiles {
 		temp.clear();
 		s = s.replaceAll("&amp;", "&");
 		s = s.replaceAll("&quot;", "\"");
+		s = s.replaceAll("&rsquo;","\'");
 		String spliting[] = s.split(" |<p>|</p>|&nbsp;|[.,]");
 		for (int jj = 0 ; jj< spliting.length; jj++){
 			temp.add(spliting[jj]);
