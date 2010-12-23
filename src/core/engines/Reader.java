@@ -14,7 +14,8 @@ public class Reader {
 	public void luceneSummarizer(){
 		MyIndexFiles index = new MyIndexFiles(content);
 		index.init();
-		//index.createIndex();
+		index.index();
+		index.computeTopTermQuery();
 	}
 	
 	public String getSummary(){
