@@ -54,7 +54,7 @@ public class SearchEngines extends HttpServlet {
 	    	if (line.matches("<p>[A-Z](.*)")){
 	    		content[id] = line;
 	    		id++;
-	    		System.out.println(line);
+	    		//System.out.println(line);
 	    	}
 	    }
 	    in.close();
