@@ -40,6 +40,7 @@ public class SearchEngines extends HttpServlet {
 	    // we're just passing this on to another server, we need to
 	    // re-encode it.
 	    String searchString = request.getParameter("searchString");
+	    String menu = request.getParameter("menu");
 	    URL theurl = new URL(searchString);
 	    System.setProperty("http.proxyHost", "152.118.24.10");
 	    System.setProperty("http.proxyPort", "8080");
@@ -59,7 +60,12 @@ public class SearchEngines extends HttpServlet {
 	    }
 	    in.close();
 	    Reader reader = new Reader(content);
-	    String summary = reader.luceneSummarizer();
+	    String summary = "";
+	    if (menu.equals("lucene")){
+	    	summary = reader.luceneSummarizer();
+		}else{
+			summary = reader.mySummarizer();
+		}
 	    String sinopsis = reader.getSinopsis();
 	    request.setAttribute("sinopsis", sinopsis);
 	    request.setAttribute("summary", summary);
