@@ -59,8 +59,9 @@ public class SearchEngines extends HttpServlet {
 	    }
 	    in.close();
 	    Reader reader = new Reader(content);
-	    reader.luceneSummarizer();
-	    String summary = reader.getSummary();
+	    String summary = reader.luceneSummarizer();
+	    String sinopsis = " ";//reader.getSinopsis();
+	    request.setAttribute("sinopsis", sinopsis);
 	    request.setAttribute("summary", summary);
 	    getServletConfig().getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	    
