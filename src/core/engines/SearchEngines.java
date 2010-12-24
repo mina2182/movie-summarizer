@@ -41,6 +41,7 @@ public class SearchEngines extends HttpServlet {
 	    // re-encode it.
 	    String searchString = request.getParameter("searchString");
 	    String menu = request.getParameter("menu");
+	    if (menu == null) menu = "";
 	    URL theurl = new URL(searchString);
 	    System.setProperty("http.proxyHost", "152.118.24.10");
 	    System.setProperty("http.proxyPort", "8080");
@@ -63,8 +64,10 @@ public class SearchEngines extends HttpServlet {
 	    String summary = "";
 	    if (menu.equals("lucene")){
 	    	summary = reader.luceneSummarizer();
-		}else{
+		}if (menu.equals("my")){
 			summary = reader.mySummarizer();
+		}else {
+			summary = "Please select summarization method";
 		}
 	    String sinopsis = reader.getSinopsis();
 	    request.setAttribute("sinopsis", sinopsis);
