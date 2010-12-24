@@ -21,9 +21,10 @@
 <div id="line2">
 <div id="result">
 <%
-if (request.getAttribute("sinopsis")!=null)
+if (request.getAttribute("sinopsis")!=null){
 	out.println("sinopsys");
 	out.print(request.getAttribute("sinopsis").toString());
+}
 %>
 </div>
 <div id="gmaps">
