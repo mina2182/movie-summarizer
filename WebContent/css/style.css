@@ -23,7 +23,6 @@
 }
 #gmaps
 {
-	position: absolute;
-	right: 50px;
-	top: 225px;
+	margin-left: 55%;
+	width: 50%;
 }
