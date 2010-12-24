@@ -8,7 +8,7 @@
 <BODY>
 <H1>Searching the Web</H1>
 
-<FORM ACTION="SearchEngines" METHOD="GET">
+<FORM ACTION="SearchEngines" METHOD="POST">
   <table>
   <tbody>
   	<tr>
