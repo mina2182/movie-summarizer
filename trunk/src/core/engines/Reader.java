@@ -1,5 +1,7 @@
 package core.engines;
 
+import org.apache.lucene.search.Query;
+
 
 
 public class Reader {
@@ -11,14 +13,15 @@ public class Reader {
 	}
 	
 	
-	public void luceneSummarizer(){
+	public String luceneSummarizer(){
 		MyIndexFiles index = new MyIndexFiles(content);
 		index.init();
 		index.index();
-		index.computeTopTermQuery();
+		Query q = index.computeTopTermQuery();
+		return index.searchIndex(q);
 	}
 	
-	public String getSummary(){
+	public String getSinopsis(){
 		String s = "";
 		for (int ii=0;ii<content.length;ii++){
 			if (content[ii]==null)
