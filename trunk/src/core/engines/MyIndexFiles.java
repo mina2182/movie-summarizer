@@ -1,9 +1,18 @@
 package core.engines;
+/**
+ * inspired by http://sujitpal.blogspot.com/2009/02/summarization-with-lucene.html
+ * basic lucene connector to summary feature
+ * the heuristic method according to zipf law, and logic
+ */
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -17,8 +26,11 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.index.TermEnum;
 
 import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.LockObtainFailedException;
@@ -31,9 +43,13 @@ public class MyIndexFiles {
 	Directory ramdir;
 	StandardAnalyzer analyzer;
 	String [] content;
+	int numSentence = 0;
 	
 	ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 	
+	public void addNumSentence(int numSentence){
+		this.numSentence += numSentence;
+	}
 	
 	public MyIndexFiles(String [] content){
 		ramdir = new RAMDirectory();
@@ -43,15 +59,20 @@ public class MyIndexFiles {
 	public void ParseParagraph(){
 		list.clear();
 		for (int ii = 0 ;ii< content.length; ii++){
-			if (content[ii] == null)
+			if (content[ii] == null){
 				break;
+			}
 			list.add(ParseSentence(content[ii]));
 		}
+		
 	}
 	
 	public ArrayList<String> ParseSentence(String s ){
 		ArrayList<String> temp = new ArrayList<String>();
 		temp.clear();
+		
+		addNumSentence(s.split(" ").length);
+		
 		s = s.replaceAll("&amp;", "&");
 		s = s.replaceAll("&quot;", "\"");
 		s = s.replaceAll("&rsquo;","\'");
@@ -74,11 +95,14 @@ public class MyIndexFiles {
 	
 	public void init(){
 		ParseParagraph();
-		print();
+		//print();
 	}
 	
 	public float calcBoost(int posparagraph, int possentence){
-		float score = 0.5F;
+		float score = 0.0F;
+		if (posparagraph < 2) score = 1.0F;
+		else if (posparagraph > 20) score = 0.0F;
+		else score = 0.0F;
 		return score;
 	}
 	
@@ -125,10 +149,31 @@ public class MyIndexFiles {
 				termlist.add(termtext);
 			}
 			reader.close();
+			ArrayList<Integer> listint = new ArrayList<Integer>(frequencyMap.values());
+			ArrayList<String> liststring = new ArrayList<String>(frequencyMap.keySet());
+			PriorityQueue<Integer> sorted = new PriorityQueue<Integer>();
+			for (int ii =0; ii<listint.size();ii++){
+				sorted.add(listint.get(ii));
+			}
+			System.out.println(sorted.size());
+			ArrayList<String> asc = new ArrayList<String>();
+			ArrayList<String> topTerms = new ArrayList<String>();
+			
+			while (!sorted.isEmpty()){
+				asc.add(liststring.get(listint.indexOf(sorted.peek())));
+				System.out.println(sorted.peek()+ " " + liststring.get(listint.indexOf(sorted.peek())));
+				int id = listint.indexOf(sorted.poll());
+				listint.remove(id);
+				listint.add(id, 0);
+			}
+			for (int ii =asc.size()-1 ; ii >= 0; ii--){
+				topTerms.add(asc.get(ii));
+			}
 			
 			StringBuilder termbuf = new StringBuilder();
 			BooleanQuery q = new BooleanQuery();
-			for (String topterm : termlist){
+			BooleanQuery.setMaxClauseCount(10000);
+			for (String topterm : topTerms){
 				termbuf.append(topterm).append("(").append(frequencyMap.get(topterm)).append(")");
 				q.add(new TermQuery(new Term("text",topterm)),Occur.SHOULD);
 			}
@@ -136,6 +181,35 @@ public class MyIndexFiles {
 			System.out.println(">>> query : " + q.toString());
 			return q;
 			
+		} catch (CorruptIndexException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String searchIndex(Query q){
+		try {
+			SortedMap<Integer,String> sentenceMap = new TreeMap<Integer,String>();
+			IndexSearcher searcher = new IndexSearcher(ramdir);
+			TopDocs topdocs = searcher.search(q,numSentence);
+			for (ScoreDoc scoreDoc : topdocs.scoreDocs) {
+				int docId = scoreDoc.doc;
+				Document doc = searcher.doc(docId);
+				sentenceMap.put(scoreDoc.doc, doc.get("text"));
+			}
+			searcher.close();
+			ArrayList<String> hasil = new ArrayList<String>(sentenceMap.values());
+			String s ="";
+			for (int ii =0 ; ii< hasil.size(); ii++){
+				s += hasil.get(ii)+" ";
+			}
+			return s;
+			//System.out.println(sentenceMap.values().toString());
+			//System.out.println(sentenceMap.keySet().toString());
 		} catch (CorruptIndexException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
