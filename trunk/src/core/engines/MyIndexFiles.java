@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.TreeSet;
+
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -70,13 +70,11 @@ public class MyIndexFiles {
 	public ArrayList<String> ParseSentence(String s ){
 		ArrayList<String> temp = new ArrayList<String>();
 		temp.clear();
-		
-		addNumSentence(s.split(" ").length);
-		
+		addNumSentence(15);
 		s = s.replaceAll("&amp;", "&");
 		s = s.replaceAll("&quot;", "\"");
 		s = s.replaceAll("&rsquo;","\'");
-		String spliting[] = s.split(" |<p>|</p>|&nbsp;|[.,]");
+		String spliting[] = s.split(" |<p>|</p>|&nbsp;|<a (.*)>|</a>");
 		for (int jj = 0 ; jj< spliting.length; jj++){
 			if (!spliting[jj].equals(""))temp.add(spliting[jj]);
 		}
@@ -100,9 +98,10 @@ public class MyIndexFiles {
 	
 	public float calcBoost(int posparagraph, int possentence){
 		float score = 0.0F;
-		if (posparagraph < 2) score = 1.0F;
-		else if (posparagraph > 20) score = 0.0F;
-		else score = 0.0F;
+		if (posparagraph < 5) score = 0.55F;
+		else if (posparagraph < 10) score = 0.20F;
+		else if (posparagraph < 15) score = 0.15F;
+		else score = 0.10F;
 		return score;
 	}
 	
@@ -153,7 +152,8 @@ public class MyIndexFiles {
 			ArrayList<String> liststring = new ArrayList<String>(frequencyMap.keySet());
 			PriorityQueue<Integer> sorted = new PriorityQueue<Integer>();
 			for (int ii =0; ii<listint.size();ii++){
-				sorted.add(listint.get(ii));
+				if (listint.get(ii)>1)
+					sorted.add(listint.get(ii));
 			}
 			System.out.println(sorted.size());
 			ArrayList<String> asc = new ArrayList<String>();
