@@ -21,6 +21,14 @@ public class Reader {
 		return index.searchIndex(q);
 	}
 	
+	public String mySummarizer(){
+		MyIndexFiles index = new MyIndexFiles(content);
+		index.init();
+		index.index();
+		index.computeTopTermQuery();
+		return index.mySearch();
+	}
+	
 	public String getSinopsis(){
 		String s = "";
 		for (int ii=0;ii<content.length;ii++){
