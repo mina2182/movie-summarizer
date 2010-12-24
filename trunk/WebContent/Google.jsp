@@ -3,7 +3,7 @@
   <head>
     <title>My Google API Application</title>
     <script src="https://www.google.com/jsapi?key=ABQIAAAA8B3kWBNcSBdYgqOALe6CrhTwM0brOpm-All5BF6PoaKBxRWWERRuBhh8sMpZkkwf5goj7Q8gxnU1fQ" type="text/javascript"></script>
-    <script language="Javascript" type="text/javascript">
+    <script type="text/javascript">
     //<![CDATA[
 
     google.load("search", "1");
