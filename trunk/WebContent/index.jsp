@@ -18,24 +18,31 @@
 </div>
 </div>
 
-<div id="line2">
-<div id="result">
-<%
-if (request.getAttribute("sinopsis")!=null){
-	out.println("sinopsys");
-	out.print(request.getAttribute("sinopsis").toString());
-}
-%>
-</div>
-<div id="gmaps">
+
+<table>
+<tbody>
+<tr>
+<td width="40%">
 <%
 if (request.getAttribute("summary")!=null){
-	out.print("summary");
+	out.print("summary"+"<br/><br/>");
 	out.print(request.getAttribute("summary").toString());
 }
 %>
-</div>
-</div>
+</td>
+<td width="40%">
+<%
+if (request.getAttribute("sinopsis")!=null){
+	out.print("sinopsis");
+	out.print(request.getAttribute("sinopsis").toString());
+}
+%>
+</td>
+</tr>
+</tbody>
+</table>
+
+
 
 </body>
 </html>
