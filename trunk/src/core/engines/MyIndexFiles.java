@@ -219,4 +219,8 @@ public class MyIndexFiles {
 		}
 		return null;
 	}
+	
+	public String mySearch(){
+		return null;
+	}
 }
