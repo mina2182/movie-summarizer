@@ -72,7 +72,7 @@ public class SearchEngines extends HttpServlet {
 	    String sinopsis = reader.getSinopsis();
 	    request.setAttribute("sinopsis", sinopsis);
 	    request.setAttribute("summary", summary);
-	    getServletConfig().getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+	    getServletConfig().getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
 	    
 	}
 
