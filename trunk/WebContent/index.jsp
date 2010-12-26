@@ -23,20 +23,8 @@
 <tbody>
 <tr>
 <td width="40%">
-<%
-if (request.getAttribute("summary")!=null){
-	out.print("summary"+"<br/><br/>");
-	out.print(request.getAttribute("summary").toString());
-}
-%>
 </td>
 <td width="40%">
-<%
-if (request.getAttribute("sinopsis")!=null){
-	out.print("sinopsis");
-	out.print(request.getAttribute("sinopsis").toString());
-}
-%>
 </td>
 </tr>
 </tbody>
