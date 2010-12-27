@@ -8,6 +8,11 @@
 <title>Movie - Summarizer</title>
 </head>
 <body>
+<div id="block">
+<table>
+<tbody>
+<tr>
+<td id="grid">
 <div id ="logo">
 <img src="./img/logo.jpg" width="60%" height="150px"/>
 </div>
@@ -20,7 +25,11 @@
 </div>
 </div>
 
+</td>
+</tr>
+</tbody>
+</table>
 
-
+</div>
 </body>
 </html>
