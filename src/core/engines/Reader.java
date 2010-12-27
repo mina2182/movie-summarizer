@@ -29,6 +29,14 @@ public class Reader {
 		return index.mySearch();
 	}
 	
+	public String bobotSummarizer(){
+		MyIndexFiles index = new MyIndexFiles(content);
+		index.init();
+		index.index();
+		index.computeTopTermQuery();
+		return index.bobotSearch();
+	}
+	
 	public String getSinopsis(){
 		String s = "";
 		for (int ii=0;ii<content.length;ii++){
