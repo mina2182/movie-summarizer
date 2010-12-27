@@ -8,7 +8,9 @@
 <title>Movie - Summarizer</title>
 </head>
 <body>
-
+<div id ="logo">
+<img src="./img/logo.jpg" width="60%" height="150px"/>
+</div>
 <div id="line1">
 <div id="summarizer">
 <%@ include file="SearchEngines.jsp" %>
@@ -17,18 +19,6 @@
 <%@ include file="Google.jsp" %>
 </div>
 </div>
-
-
-<table>
-<tbody>
-<tr>
-<td width="40%">
-</td>
-<td width="40%">
-</td>
-</tr>
-</tbody>
-</table>
 
 
 
