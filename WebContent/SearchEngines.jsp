@@ -16,8 +16,9 @@
     	<td><INPUT TYPE="TEXT" NAME="searchString"></td> 
     </tr>
     <tr>
-    	<td><input type="radio" name ="menu" value="my"/>My Lucene's opt</td>
-    	<td><input type="radio" name ="menu" value="lucene"/>My Lucene's</td>
+    	<td colspan = "3"><input type="radio" name ="menu" value="my"/>relevance
+    	<input type="radio" name ="menu" value="bobot"/>bobot
+    	<input type="radio" name ="menu" value="lucene"/>searcher</td>
     </tr>
     <tr>
     	<td><INPUT TYPE="SUBMIT" VALUE="Summary"></td>
