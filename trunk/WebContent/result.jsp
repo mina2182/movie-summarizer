@@ -9,34 +9,33 @@
 </head>
 <body>
 
-<div id="line1">
-<div id="summarizer">
-<a href="./index.jsp">Back</a>
-</div>
-<div id="google">
-
-</div>
-</div>
-
 
 <table>
 <tbody>
 <tr>
-<td width="40%">
+<td>
+<div id ="logoresult">
+<img src="./img/logo.jpg" width="60%" height="150px"/>
+</div>
+<div id="line1">
+<div id="summary">
 <%
 if (request.getAttribute("summary")!=null){
 	out.print("summary"+"<br/><br/>");
 	out.print(request.getAttribute("summary").toString());
 }
 %>
-</td>
-<td width="40%">
+</div>
+<div id="sinopsis">
 <%
 if (request.getAttribute("sinopsis")!=null){
 	out.print("sinopsis");
 	out.print(request.getAttribute("sinopsis").toString());
 }
 %>
+</div>
+</div>
+
 </td>
 </tr>
 </tbody>
