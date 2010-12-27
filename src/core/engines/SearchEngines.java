@@ -66,6 +66,8 @@ public class SearchEngines extends HttpServlet {
 	    	summary = reader.luceneSummarizer();
 		}else if (menu.equals("my")){
 			summary = reader.mySummarizer();
+		}else if (menu.equals("bobot")){
+			summary = reader.bobotSummarizer();
 		}else {
 			summary = "Please select summarization method";
 		}
