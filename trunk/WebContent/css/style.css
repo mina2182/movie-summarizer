@@ -2,13 +2,13 @@
 {
 	position: absolute;
 	left: 20%;
-	top: 50px;
+	top: 150px;
 }
 #google
 {
 	position: absolute;
 	left: 50%;
-	top: 80px;
+	top: 150px;
 }
 #line2
 {
@@ -53,14 +53,14 @@ BODY{
 #summary
 {
 	position: absolute;
-	top: 50px;
+	top: 150px;
 	width: 45%;
 	border: 3px solid #0617DA;
 }
 #sinopsis
 {
 	position: absolute;
-	top: 50px;
+	top: 150px;
 	left: 50%;
 	border: 3px solid #0617DA;
 	width: 45%;
