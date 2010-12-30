@@ -44,7 +44,8 @@ public class MyIndexFiles {
 	StandardAnalyzer analyzer;
 	String [] content;
 	int numSentence = 0;
-	
+	ArrayList<String> topTerms;
+	Map<String,Integer> frequencyMap;
 	ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 	
 	public void addNumSentence(int numSentence){
@@ -136,7 +137,7 @@ public class MyIndexFiles {
 	
 	public Query computeTopTermQuery(){
 		try {
-			final Map<String,Integer> frequencyMap = new HashMap<String,Integer>();
+			frequencyMap = new HashMap<String,Integer>();
 			ArrayList<String> termlist = new ArrayList<String>();
 			IndexReader reader = IndexReader.open(ramdir);
 			TermEnum terms = reader.terms();
@@ -157,7 +158,7 @@ public class MyIndexFiles {
 			}
 			System.out.println(sorted.size());
 			ArrayList<String> asc = new ArrayList<String>();
-			ArrayList<String> topTerms = new ArrayList<String>();
+			topTerms = new ArrayList<String>();
 			
 			while (!sorted.isEmpty()){
 				asc.add(liststring.get(listint.indexOf(sorted.peek())));
@@ -174,8 +175,14 @@ public class MyIndexFiles {
 			BooleanQuery q = new BooleanQuery();
 			BooleanQuery.setMaxClauseCount(10000);
 			for (String topterm : topTerms){
+				if (topterm.equals("he")||topterm.equals("she")||topterm.equals("his")||topterm.equals("her"))
+				{
+					frequencyMap.remove(topterm);
+					frequencyMap.put(topterm, 5);
+				}
 				termbuf.append(topterm).append("(").append(frequencyMap.get(topterm)).append(")");
 				q.add(new TermQuery(new Term("text",topterm)),Occur.SHOULD);
+				
 			}
 			System.out.println(">>> top term : " + termbuf.toString());
 			System.out.println(">>> query : " + q.toString());
@@ -220,7 +227,111 @@ public class MyIndexFiles {
 		return null;
 	}
 	
+	public String bobotSearch(){
+		final int NUM_SUMMARY = 15;
+		int id = 0;
+
+		PriorityQueue<Double> pq = new PriorityQueue<Double>();
+		TreeMap<Integer,String> mapkata = new TreeMap<Integer,String>();
+		TreeMap<Integer,Double> mapval = new TreeMap<Integer,Double>();
+		for (int ii = 0 ;ii<content.length;ii++ ){
+			String temp = content[ii];
+			if (temp == null) break;
+			else{
+				temp = temp.replaceAll("&amp;","&");
+				temp = temp.replaceAll("&quot;","\"");
+				temp = temp.replaceAll("&rsquo;","\'");
+				temp = temp.replaceAll("<p>|</p>","");
+				temp = temp.replaceAll("<a (.*)>|</a>","");
+				
+				String [] split = temp.split("&nbsp;|[. ]{2}");
+				
+				for (int jj=0; jj<split.length; jj++){
+					int val = 0;
+					
+					String [] kata = split[jj].split("[ ,.()]");
+					for (int kk =0 ; kk<kata.length; kk++){
+						if (!kata[kk].equals("")){
+							String s = kata[kk];
+							if (frequencyMap.containsKey(s))
+								val += frequencyMap.get(s.toLowerCase());
+						}
+					}
+					
+					mapkata.put(id, split[jj]);
+					double bobot = (double) val + (double) jj*10/ (double) ii; 
+					mapval.put(id, bobot);
+					pq.add(bobot);
+					id++;
+				}
+			}
+		}
+		
+		while (pq.size()>NUM_SUMMARY){
+			System.out.println(pq.poll());
+		}
+		String hasil = "";
+		for (int ii =0 ; ii<id; ii++){
+			double pos = mapval.get(ii);
+			if (pq.contains(pos))
+				hasil += mapkata.get(ii);
+		}
+		return hasil;
+	}
+	
 	public String mySearch(){
-		return null;
+		final int NUM_SUMMARY = 15;
+		int id = 0;
+
+		PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+		TreeMap<Integer,String> mapkata = new TreeMap<Integer,String>();
+		TreeMap<Integer,Integer> mapval = new TreeMap<Integer,Integer>();
+		for (int ii = 0 ;ii<content.length;ii++ ){
+			String temp = content[ii];
+			if (temp == null) break;
+			else{
+				temp = temp.replaceAll("&amp;","&");
+				temp = temp.replaceAll("&quot;","\"");
+				temp = temp.replaceAll("&rsquo;","\'");
+				temp = temp.replaceAll("<p>|</p>","");
+				temp = temp.replaceAll("<a (.*)>|</a>","");
+				
+				String [] split = temp.split("&nbsp;|[. ]{2}");
+				
+				for (int jj=0; jj<split.length; jj++){
+					int val = 0;
+					split[jj]=split[jj]+". ";
+					String [] kata = split[jj].split("[ ,.()]");
+					for (int kk =0 ; kk<kata.length; kk++){
+						if (!kata[kk].equals("")){
+							String s = kata[kk];
+							if (frequencyMap.containsKey(s))
+								val += frequencyMap.get(s.toLowerCase());
+						}
+					}
+					
+					mapkata.put(id, split[jj]);
+					mapval.put(id, val);
+					pq.add(val);
+					id++;
+				}
+			}
+		}
+		
+		while (pq.size()>NUM_SUMMARY){
+			System.out.println(pq.poll());
+		}
+		String hasil = "";
+		for (int ii =0 ; ii<id; ii++){
+			int pos = mapval.get(ii);
+			if (pq.contains(pos))
+			{
+				hasil += mapkata.get(ii);
+				System.out.println();
+				System.out.println(mapkata.get(ii));
+				System.out.println();
+			}
+		}
+		return hasil;
 	}
 }
