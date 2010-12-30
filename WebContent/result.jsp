@@ -14,9 +14,7 @@
 <tbody>
 <tr>
 <td>
-<div id ="logoresult">
-<img src="./img/logo.jpg" width="60%" height="150px"/>
-</div>
+
 <div id="line1">
 <div id="summary">
 <%
