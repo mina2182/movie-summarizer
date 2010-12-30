@@ -13,9 +13,6 @@
 <tbody>
 <tr>
 <td id="grid">
-<div id ="logo">
-<img src="./img/logo.jpg" width="60%" height="150px"/>
-</div>
 <div id="line1">
 <div id="summarizer">
 <%@ include file="SearchEngines.jsp" %>
