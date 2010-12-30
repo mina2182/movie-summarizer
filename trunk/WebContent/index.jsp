@@ -27,7 +27,7 @@ input { padding: 4px; border-radius: 5px; -moz-border-radius: 5px; -webkit-borde
 </head>
 <body>
 <h1 style="color: #069;">Movie Summarizer</h1>
-<div id="block">
+
 <table>
 <tbody>
 <tr>
@@ -39,7 +39,7 @@ input { padding: 4px; border-radius: 5px; -moz-border-radius: 5px; -webkit-borde
 <div id="google">
 <%@ include file="Google.jsp" %>
 </div>
-</div>
+
 
 </td>
 </tr>
