@@ -39,13 +39,13 @@ input { padding: 4px; border-radius: 5px; -moz-border-radius: 5px; -webkit-borde
 <div id="google">
 <%@ include file="Google.jsp" %>
 </div>
-
+</div>
 
 </td>
 </tr>
 </tbody>
 </table>
 
-</div>
+
 </body>
 </html>
