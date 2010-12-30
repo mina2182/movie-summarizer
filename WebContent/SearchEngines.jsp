@@ -6,7 +6,7 @@
 </HEAD>
 
 <BODY>
-<H1>Searching the Web</H1>
+<H2>Searching the Web</H2>
 
 <FORM ACTION="SearchEngines" METHOD="POST">
   <table>
